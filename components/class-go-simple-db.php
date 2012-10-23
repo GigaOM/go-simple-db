@@ -9,7 +9,7 @@ class Go_Simple_DB
 	 */
 	public static function check_domain( $aws_sdb_domain )
 	{
-		$domains = static::$simple_db[ $aws_sdb_domain ]->listDomains();
+		$domains = static::$simple_dbs[ $aws_sdb_domain ]->listDomains();
 		$exists  = FALSE;
 		
 		if ( $domains )
@@ -26,7 +26,7 @@ class Go_Simple_DB
 		
 		if ( $exists == FALSE )
 		{
-			static::simple_db()->createDomain( static::$aws_sdb_domain );
+			static::$simple_dbs[ $aws_sdb_domain ]->createDomain( $aws_sdb_domain );
 		} // end if
 	} // end function check_domain
 	
@@ -35,8 +35,8 @@ class Go_Simple_DB
 	 * @return SimpleDB object
 	 */
 	public static function get( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
-	{		
-		if ( ! is_object( static::$simple_db[ $aws_sdb_domain ] ) )
+	{
+		if ( ! is_object( static::$simple_dbs[ $aws_sdb_domain ] ) )
 		{
 			if ( empty( $aws_access_key ) || empty( $aws_secret_key ) )
 			{
@@ -45,12 +45,12 @@ class Go_Simple_DB
 			
 	 		require_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
 			
-			static::$simple_db[ $aws_sdb_domain ] = new SimpleDB( $aws_access_key, $aws_secret_key, $aws_sdb_domain );
-			
+			static::$simple_dbs[ $aws_sdb_domain ] = new SimpleDB( $aws_access_key, $aws_secret_key );
+
 			static::check_domain( $aws_sdb_domain );
 		} // end if
-		
-		return static::$simple_db[ $aws_sdb_domain ];
+
+		return static::$simple_dbs[ $aws_sdb_domain ];
 	} // end function go_get_simple_db
 
 } // end class Go_Simple_DB
