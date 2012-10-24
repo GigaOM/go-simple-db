@@ -43,7 +43,11 @@ class Go_Simple_DB
 				return false;
 			} // end if
 
-	 		require_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
+			// @TODO: remove this check when all plugins have been ported over and we no longer need to test in old theme
+			if ( ! class_exists( 'SimpleDB' ) )
+			{
+				require_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
+			}//end if
 
 			$db[ $aws_sdb_domain ] = new SimpleDB( $aws_access_key, $aws_secret_key );
 
