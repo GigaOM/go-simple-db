@@ -26,7 +26,7 @@ class Go_Simple_DB
 		{
 			static::get( $aws_sdb_domain )->createDomain( $aws_sdb_domain );
 		} // end if
-	} // end function check_domain
+	} // end check_domain
 
 	/**
 	 * Setup and return an AWS SimpleDB Object, act as a singleton, by domain
@@ -46,7 +46,7 @@ class Go_Simple_DB
 			// @TODO: remove this check when all plugins have been ported over and we no longer need to test in old theme
 			if ( ! class_exists( 'SimpleDB' ) )
 			{
-				require_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
+				include_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
 			}//end if
 
 			$db[ $aws_sdb_domain ] = new SimpleDB( $aws_access_key, $aws_secret_key );
@@ -55,5 +55,5 @@ class Go_Simple_DB
 		} // end if
 
 		return $db[ $aws_sdb_domain ];
-	} // end function go_get_simple_db
-} // end class Go_Simple_DB
+	} // end get
+}// end class
