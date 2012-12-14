@@ -36,7 +36,7 @@ class Go_Simple_DB
 	{
 		static $db = array();
 
-		if ( ! is_object( $db[ $aws_sdb_domain ] ) )
+		if ( ! isset( $db[ $aws_sdb_domain ] ) || ! is_object( $db[ $aws_sdb_domain ] ) )
 		{
 			if ( empty( $aws_access_key ) || empty( $aws_secret_key ) )
 			{
