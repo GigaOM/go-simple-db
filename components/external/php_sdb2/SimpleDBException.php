@@ -11,7 +11,8 @@
  *
  * @link https://github.com/g-g/php-sdb2
  */
- 
+namespace g_g\php_sdb2;
+
 class SimpleDBException extends \Exception{
     protected $simpleDBErrors;
     

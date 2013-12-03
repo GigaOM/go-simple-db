@@ -22,6 +22,8 @@
  *
  */
 
+namespace g_g\php_sdb2;
+
 require_once dirname(__FILE__) . '/SimpleDBRequest.php';
 require_once dirname(__FILE__) . '/SimpleDBError.php';
 require_once dirname(__FILE__) . '/SimpleDBException.php';

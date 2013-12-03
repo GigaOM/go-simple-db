@@ -12,6 +12,8 @@
  * @link https://github.com/g-g/php-sdb2
  */
 
+namespace g_g\php_sdb2;
+
 /**
  * A container class that contains all errors that occured during a transaction.
  * It can be used as an array, and be iterated.
