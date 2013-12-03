@@ -8,7 +8,7 @@ class GO_Simple_DB
 	 */
 	public function __construct( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
 	{
-		static $db = array();
+		$db = array();
 
 		if ( ! isset( $db[ $aws_sdb_domain ] ) || ! is_object( $db[ $aws_sdb_domain ] ) )
 		{
