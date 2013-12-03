@@ -1,13 +1,13 @@
 <?php
 
-class Go_Simple_DB
+class GO_Simple_DB
 {
 	/**
 	 * Check if the SimpleDB domain exists, if not, create it
 	 */
-	public static function check_domain( $aws_sdb_domain )
+	public function check_domain( $aws_sdb_domain )
 	{
-		$domains = static::get( $aws_sdb_domain )->listDomains();
+		$domains = $this->get( $aws_sdb_domain )->listDomains();
 		$exists  = FALSE;
 
 		if ( $domains )
@@ -24,7 +24,7 @@ class Go_Simple_DB
 
 		if ( $exists == FALSE )
 		{
-			static::get( $aws_sdb_domain )->createDomain( $aws_sdb_domain );
+			$this->get( $aws_sdb_domain )->createDomain( $aws_sdb_domain );
 		} // end if
 	} // end check_domain
 
@@ -32,7 +32,7 @@ class Go_Simple_DB
 	 * Setup and return an AWS SimpleDB Object, act as a singleton, by domain
 	 * @return SimpleDB object
 	 */
-	public static function get( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
+	public function get( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
 	{
 		static $db = array();
 
@@ -51,9 +51,21 @@ class Go_Simple_DB
 
 			$db[ $aws_sdb_domain ] = new SimpleDB( $aws_access_key, $aws_secret_key );
 
-			static::check_domain( $aws_sdb_domain );
+			$this->check_domain( $aws_sdb_domain );
 		} // end if
 
 		return $db[ $aws_sdb_domain ];
 	} // end get
 }// end class
+
+function go_simple_db()
+{
+	global $go_simple_db;
+
+	if ( ! isset( $go_simple_db ) )
+	{
+		$go_simple_db = new GO_Simple_DB();
+	}// end if
+
+	return $go_simple_db;
+}// end go_simple_db
