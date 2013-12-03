@@ -16,10 +16,10 @@ Usage Notes
 -----------
 
 1. Load simple db class
-	* ```$go_simple_db = go_simple_db()->get( 
+	* ```$go_simple_db = go_simple_db( 
 		YOUR_SDB_DOMAIN,
-		YOUR_SECRET,
-		YOUR_SDB_DOMAIN
+		YOUR_KEY,
+		YOUR_SECRET
 	);```
 	* The SDB Domain value is analagous to an SQL Table. If the SDB Domain doesn't exist yet Gigaom Simple DB will create it for you.
 	* See: [Amazon Simple DB Getting Started Guide](http://docs.aws.amazon.com/AmazonSimpleDB/latest/GettingStartedGuide/Welcome.html) for more information on getting your Key and Secret values.
