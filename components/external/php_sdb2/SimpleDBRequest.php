@@ -17,6 +17,8 @@
  * @link https://sourceforge.net/projects/php-sdb/
  */
 
+namespace g_g\php_sdb2;
+
 class SimpleDBRequest {
 
     private $sdb, $verb, $resource = '';
@@ -102,7 +104,7 @@ class SimpleDBRequest {
         curl_setopt($curl, CURLOPT_USERAGENT, 'SimpleDB/php');
 
         if ($ssl) {
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, ($this->sdb->verifyHost() ? 1 : 0));
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, ($this->sdb->verifyHost() ? 2 : 0));
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, ($this->sdb->verifyPeer() ? 1 : 0));
         }
 //        echo "$url\n";
