@@ -21,7 +21,7 @@ class GO_Simple_DB
 			include_once __DIR__ . '/external/php_sdb2/SimpleDB.php';
 		}//end if
 
-		$this->db = new SimpleDB( $aws_access_key, $aws_secret_key );
+		$this->db = new g_g\php_sdb2\SimpleDB( $aws_access_key, $aws_secret_key );
 
 		$this->check_domain( $aws_sdb_domain );
 	} // end __construct
