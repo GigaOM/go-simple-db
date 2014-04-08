@@ -33,7 +33,7 @@ Uses a combination of jQuery addons including maphighlight, Timezone Picker, and
 == Installation ==
 
 1. Upload `go-simple-db` to the `/wp-content/plugins/` directory
-1. Activate 'Gigaom Simple DB' through the 'Plugins' menu in WordPress
+2. Activate 'Gigaom Simple DB' through the 'Plugins' menu in WordPress
 
 == Contributing ==
 
