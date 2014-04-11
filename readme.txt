@@ -7,11 +7,9 @@ Tested up to: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Establish a connection to Amazon Simple DB. Uses the awesome [php-sdb2](https://github.com/g-g/php-sdb2) SDB library.
-
 == Description ==
 
-Uses a combination of jQuery addons including maphighlight, Timezone Picker, and Timpicker Addon to present a nice UI for date/time and timezone selections.
+Establish a connection to Amazon Simple DB. Uses the awesome [php-sdb2](https://github.com/g-g/php-sdb2) SDB library.
 
 === Usage ===
 
