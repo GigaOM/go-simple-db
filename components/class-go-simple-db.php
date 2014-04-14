@@ -25,33 +25,45 @@ class GO_Simple_DB
 
 		$this->check_domain( $aws_sdb_domain );
 	} // end __construct
-	
+
 	/**
 	 * Check if the SimpleDB domain exists, if not, create it
 	 */
 	public function check_domain( $aws_sdb_domain )
 	{
-		$domains = $this->db->listDomains();
-		$exists  = FALSE;
+		// 100 is the max number of domains page size the server would
+		// return. this is enforced on the server (aws) side
+		$max_domains = 100;
 
-		if ( $domains )
+		$domains = $this->db->listDomains( $max_domains );
+		while ( ! empty( $this->db->NextToken ) )
+		{
+			$more_domains = $this->db->listDomains( $max_domains, $this->db->NextToken );
+			if ( empty( $more_domains ) || ! $more_domains )
+			{
+				break;
+			}
+			$domains = array_merge( $domains, $more_domains );
+			if ( $max_domains > count( $more_domains ) )
+			{
+				break; // no need to make another api call
+			}
+		}//END while
+
+		if ( is_array( $domains ) )
 		{
 			foreach ( $domains as $domain )
 			{
 				if ( $domain == $aws_sdb_domain )
 				{
-					$exists = TRUE;
-					break;
-				} // end if
-			} // end foreach
-		} // end if
+					return; // no need to create one
+				}
+			}//end foreach
+		}//end if
 
-		if ( $exists == FALSE )
-		{
-			$this->db->createDomain( $aws_sdb_domain );
-		} // end if
-	} // end check_domain
-}// end class
+		$this->db->createDomain( $aws_sdb_domain );
+	}//end check_domain
+}//end class
 
 function go_simple_db( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
 {
