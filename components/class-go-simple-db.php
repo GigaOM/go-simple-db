@@ -6,7 +6,11 @@ class GO_Simple_DB
 
 	/**
 	 * Setup and return an AWS SimpleDB Object, act as a singleton, by domain
+	 *
 	 * @return SimpleDB object
+	 * @param string $aws_sbd_domain Optional, default empty string. The Amazon Web Services SimpleDB domain
+	 * @param string $aws_acess_key Optional, default empty string. The Amazon Web Services access key
+	 * @param string $aws_secret_key Optional, default empty string. The Amazon Web Services secret key
 	 */
 	public function __construct( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
 	{
@@ -28,6 +32,8 @@ class GO_Simple_DB
 	
 	/**
 	 * Check if the SimpleDB domain exists, if not, create it
+	 *
+	 * @param string $aws_sdb_domain Optional, default empty string. The Amazon Web Services SimpleDB domain
 	 */
 	public function check_domain( $aws_sdb_domain )
 	{
@@ -53,6 +59,14 @@ class GO_Simple_DB
 	} // end check_domain
 }// end class
 
+/**
+ * Singleton function
+ *
+ * @return GO_Simple_DB singleton to get a SimpleDB object
+ * @param string $aws_sdb_domain Optional, default empty string. The Amazon Web Services SimpleDB domain
+ * @param string $aws_acess_key Optional, default empty string. The Amazon Web Services access key
+ * @param string $aws_secret_key Optional, default empty string. The Amazon Web Services secret key
+ */
 function go_simple_db( $aws_sdb_domain, $aws_access_key = '', $aws_secret_key = '' )
 {
 	global $go_simple_db;
