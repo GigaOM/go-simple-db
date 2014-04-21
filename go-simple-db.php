@@ -8,3 +8,9 @@
  */
 
 require_once __DIR__ . '/components/class-go-simple-db.php';
+
+// is this a wp-cli call?
+if ( defined( 'WP_CLI' ) && WP_CLI )
+{
+	include __DIR__ . '/components/class-go-simple-db-wp-cli.php';
+}
