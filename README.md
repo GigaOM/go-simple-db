@@ -30,6 +30,11 @@ Usage Notes
 	* Queries are quite different in SDB and you'll need to familiarize yourself with those differences.
 	* Did I mention the [SDB Developer Guide](http://docs.aws.amazon.com/AmazonSimpleDB/latest/DeveloperGuide)?
 
+
+Hacking notes
+-------------
+1. We found a bug in php_sdb2's listDomains() function where it's not saving the NextToken if the result contains one. We've made a pull request to patch this in the master repo (https://github.com/g-g/php-sdb2/pull/2) but it hasn't been merged yet.
+
 Report Issues, Contribute Code, or Fix Stuff
 --------------------------------------------
 
