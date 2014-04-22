@@ -4,23 +4,6 @@
  */
 class GO_Simple_DB_WP_CLI extends WP_CLI_Command
 {
-	private $config = NULL;
-
-	/**
-	 * lazily read in our config file.
-	 */
-	private function config()
-	{
-		if ( ! empty( $this->config ) )
-		{
-			return $this->config;
-		}
-
-		$this->config = apply_filters( 'go_config', array(), 'go-simple-db' );
-
-		return $this->config;
-	}//END config
-
 	/**
 	 * copy all data from one SimpleDB domain to another. this command
 	 * is designed for go-mcsync-reports data but may work for other
@@ -28,6 +11,10 @@ class GO_Simple_DB_WP_CLI extends WP_CLI_Command
 	 *
 	 * ## OPTIONS
 	 *
+	 * --access-key=<aws-access-key>
+	 * : the AWS api access key
+	 * --secret-key=<aws-secret-key>
+	 * : the AWS api secret key
 	 * --from=<from-domain>
 	 * : the aws simpledb domain to copy data from
 	 * --to=<to-domain>
@@ -41,7 +28,7 @@ class GO_Simple_DB_WP_CLI extends WP_CLI_Command
 	 *
 	 * wp go_simple_db refresh_data --url=accounts.gigaom.com
 	 *
-	 * @synopsis [--url=<url>] [--path=<path>] --from=<from-domain> --to=<to-domain> [--from-date=<from-date>]
+	 * @synopsis [--url=<url>] [--path=<path>] --access-key=<aws-access-key> --secret-key=<aws-secret-key> --from=<from-domain> --to=<to-domain> [--from-date=<from-date>]
 	 */
 	public function copy_domains( $unused_args, $assoc_args )
 	{
@@ -60,20 +47,8 @@ class GO_Simple_DB_WP_CLI extends WP_CLI_Command
 			WP_CLI::error( 'go-simple-db not activated' );
 		}
 
-		$config = $this->config();
-
-		if ( ! isset( $config['aws_access_key'] ) )
-		{
-			WP_CLI::error( 'missing aws access key in config file' );
-		}
-
-		if ( ! isset( $config['aws_secret_key'] ) )
-		{
-			WP_CLI::error( 'missing aws secret key in config file' );
-		}
-
-		$from_db = go_simple_db( $from_domain, $config['aws_access_key'], $config['aws_secret_key'] );
-		$to_db = go_simple_db( $to_domain, $config['aws_access_key'], $config['aws_secret_key'] );
+		$from_db = go_simple_db( $from_domain, $assoc_args['access-key'], $assoc_args['secret-key'] );
+		$to_db = go_simple_db( $to_domain, $assoc_args['access-key'], $assoc_args['secret-key'] );
 
 		WP_CLI::line( 'copying data from ' . $from_domain . ' to ' . $to_domain );
 
