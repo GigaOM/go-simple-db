@@ -249,6 +249,15 @@ class SimpleDB {
             return $results;
         }
 
+		//++ Gigaom patch start
+		// we've pull-requested this fix to the master repo but it has not
+		// yet been merged yet: https://github.com/g-g/php-sdb2/pull/2
+        if (isset($rest->body->ListDomainsResult->NextToken))
+        {
+            $this->NextToken = (string) $rest->body->ListDomainsResult->NextToken;
+        }
+		//++ Gigaom patch end
+
         foreach ($rest->body->ListDomainsResult->DomainName as $d) {
             $results[] = (string) $d;
         }
